@@ -34,38 +34,51 @@ Things you may want to cover:
 
 ### Association
 - belongs_to :user
-- has_many :groups, through: :groups_users
 
 
 ## usersテーブル
 
 |Colum|Type|Options|
 |-----|----|-------|
-|name|string|null: false|
+|name|string|index: true,null: false,unique: true|
 |email|string|null: false|
-|password|string|null: false|
+
 
 ### Association
+- has_many :groups, though: members
 - has_many :messages
+- has_many :members
 
 ## groupsテーブル
 
 |Colum|Type|Options|
 |-----|----|-------|
-|id|integer|
-|name|string|
+|id|integer||
+|username|string|null: false|
+|groupname|string|null: false|
+|user_id|integer|
 
 ### Asociation
 - has_many :users, through: :groups_users
+
+## membersテーブル
+|Colum|Type|Options|
+|-----|----|-------|
+|member|string|
+
+### Association
+- has_many :groups, though: users
+- has_many :users
 
 ## groups_usersテーブル
 
 |Colum|Type|Options|
 |-----|----|-------|
-|user_id|integer|
-|group_id|integer|
+|user_id|integer|null: false, foreign_key: true|
+|group_id|integer|null: false, foreign_key: true|
 
-### Associationテーブル
-- belongs_to :users
-- belongs_to :groups
+### Association
+- belongs_to :user
+- belongs_to :group
+- belongs_to :member
 
