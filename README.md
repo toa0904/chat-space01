@@ -29,11 +29,12 @@ Things you may want to cover:
 |-----|----|-------|
 |body|text||
 |image|string|
-|group_id|integer|null: false, foreign_key: true|
-|user_id|integer|null:false, foreign_key: true|
+|group_id|references|null: false, foreign_key: true|
+|user_id|references|null:false, foreign_key: true|
 
 ### Association
 - belongs_to :user
+- belongs_to :group
 
 
 ## usersテーブル
@@ -45,7 +46,7 @@ Things you may want to cover:
 
 
 ### Association
-- has_many :groups, though: members
+- has_many :groups, though: :groups_users
 - has_many :messages
 - has_many :members
 
@@ -53,32 +54,22 @@ Things you may want to cover:
 
 |Colum|Type|Options|
 |-----|----|-------|
-|id|integer||
-|username|string|null: false|
-|groupname|string|null: false|
-|user_id|integer|
+|name|string|null: false|
 
 ### Asociation
 - has_many :users, through: :groups_users
+- has_many :messages, through: group_users
 
-## membersテーブル
-|Colum|Type|Options|
-|-----|----|-------|
-|member|string|
 
-### Association
-- has_many :groups, though: users
-- has_many :users
 
 ## groups_usersテーブル
 
 |Colum|Type|Options|
 |-----|----|-------|
-|user_id|integer|null: false, foreign_key: true|
-|group_id|integer|null: false, foreign_key: true|
+|user_id|references|null:false, foreign_key: true|
+|group_id|references|null:false, foreign_key: true|
 
 ### Association
 - belongs_to :user
 - belongs_to :group
-- belongs_to :member
 
